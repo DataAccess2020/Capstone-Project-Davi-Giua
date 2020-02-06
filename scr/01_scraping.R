@@ -8,4 +8,4 @@ tweets_collection <- search_tweets2(
   parse = TRUE
 )
 
-save(tweets_collection, file = "data/tweets_try1.RData")
+save(tweets_collection, file = "tweets_try1.RData")
