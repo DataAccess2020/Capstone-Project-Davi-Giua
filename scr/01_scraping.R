@@ -3,7 +3,7 @@
 #trying to get tweets that contain both coronavirus and fakenews
 tweets_collection <- search_tweets2(
   c("coronavirus , fakenews"), 
-  n = 50000, 
+  n = 18000, 
   retryonratelimit = TRUE, 
   parse = TRUE,
   include_rts = FALSE,
@@ -12,12 +12,4 @@ tweets_collection <- search_tweets2(
 
 save(tweets_collection, file = "tweets_try1.RData")
 
-tweets_collection <- search_tweets2(
-  "#coronavirus , #fakenews", 
-  n = 100000, 
-  retryonratelimit = TRUE, 
-  parse = FALSE,
-  include_rts = FALSE,
-  timeout = 60 * 60 * 24 * 7,
-  lang = "it"
-)
+
