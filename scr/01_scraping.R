@@ -11,3 +11,13 @@ tweets_collection <- search_tweets2(
 )
 
 save(tweets_collection, file = "tweets_try1.RData")
+
+tweets_collection <- search_tweets2(
+  "#coronavirus , #fakenews", 
+  n = 100000, 
+  retryonratelimit = TRUE, 
+  parse = FALSE,
+  include_rts = FALSE,
+  timeout = 60 * 60 * 24 * 7,
+  lang = "it"
+)
