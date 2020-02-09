@@ -23,12 +23,12 @@ stream2 <- stream_tweets(q = keywords,
 save(stream2, file = "streamedtweets.RData")
 
 #new try with searchtweets
-tweets_collection <- search_tweets(
-  c("#coronavirus , #fakenews"), 
-  n = 50000, 
-  retryonratelimit = TRUE, 
-  include_rts = FALSE,
+italian_tweets <- search_tweets2(
+  c("coronavirus, fakenews"), n = 1800, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
   lang = "it"
 )
 
+save(italian_tweets, file = "italian_tweets.RData")
 
