@@ -59,3 +59,36 @@ italian_tweets2 <- search_tweets2(
 save(italian_tweets2, file = "italian_tweets2.RData")
 
 #this retrieves 579 observations 
+
+#new tests
+#1
+coronavirus_tweets <- search_tweets2(q = "#coronavirus , #fakenews")
+save(coronavirus_tweets, file = "coronavirus_tweets.RData")
+#100 obs
+
+#2
+coronav_tweets <- search_tweets(
+  "#coronavirus, #fakenews", n = 18000, include_rts = FALSE
+)
+save(coronav_tweets, file = "coronav_tweets.RData")
+#972 obs
+
+#3
+coronav_tweets1 <- search_tweets(
+  "#coronavirus, #fakenews", n = 250000, retryonratelimit = TRUE,
+  lang = "it",
+  include_rts = FALSE
+)
+save(coronav_tweets1, file = "coronav_tweets1.RData")
+#231 obs
+
+#4
+coronav_tweets2 <- search_tweets(
+  "#coronavirus, #fakenews", n = 1000000, retryonratelimit = TRUE,
+  lang = "it",
+  include_rts = FALSE
+)
+save(coronav_tweets2, file = "coronav_tweets2.RData")
+#231 obs
+
+
