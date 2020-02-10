@@ -91,4 +91,13 @@ coronav_tweets2 <- search_tweets(
 save(coronav_tweets2, file = "coronav_tweets2.RData")
 #231 obs
 
+whatsthis <- search_tweets2(
+  c("#coronavirus, #fakenews"),
+  n = 50000,
+  retryonratelimit = TRUE,
+  include_rts = FALSE,
+  lang = "it"
+)
 
+save(whatsthis, file = "whatsthis.RData")
+#232 obs
