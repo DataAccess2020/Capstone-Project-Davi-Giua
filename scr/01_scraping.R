@@ -37,7 +37,7 @@ italian_coronav_tweets <- search_tweets2(
   include_rts = FALSE, 
   lang = "it"
 )
-#this retrieves 51462 observations 
+#this retrieves 51462 observations. Apparently this is the only one that finishes downloading 
 
 save(italian_coronav_tweets, file = "italian_coronav_tweets.RData")
 
@@ -113,4 +113,4 @@ both_keywords <- search_tweets(
 )
 save(both_keywords, file = "both_keywords_ita.RData")
 
-# this last one retrieves 544 observations from 03-02 to 11-02 (ran at 11.20 of 11/02.)
+# this last one retrieves 544 observations from 02-02 to 11-02 (ran at 11.20 of 11/02.)
