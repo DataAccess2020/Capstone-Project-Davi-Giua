@@ -17,7 +17,7 @@ We want to:
 - try and visualize what are the words that are most used in these tweets, to try and develop some understanding of what the public thinks about the combination of these two phenomena.
 
 ## Collecting data
-First of all, we are trying to collect italian tweets containing #coronavirus and fakenews
+First of all, we are trying to collect italian tweets containing #coronavirus and #fakenews
 
 ## Packages used
 rtweet
