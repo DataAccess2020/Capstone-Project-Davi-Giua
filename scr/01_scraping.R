@@ -101,3 +101,16 @@ whatsthis <- search_tweets2(
 
 save(whatsthis, file = "whatsthis.RData")
 #232 obs
+
+#trying to get all the italian material on both keywords with one code: 
+
+both_keywords <- search_tweets(
+  "#coronavirus OR coronavirus, #fakenews OR fakenews OR fake news", 
+  n = 18000, 
+  retryonratelimit = TRUE, 
+  include_rts = FALSE, 
+  lang = "it"
+)
+save(both_keywords, file = "both_keywords_ita.RData")
+
+# this last one retrieves 544 observations from 03-02 to 11-02 (ran at 11.20 of 11/02.)
