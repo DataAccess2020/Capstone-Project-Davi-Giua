@@ -19,11 +19,19 @@ italian_coronav_tweets <- search_tweets2(
   include_rts = FALSE, 
   lang = "it"
 )
-#this retrieves 51462 observations. 
+#this retrieves 49757 observations. 
 
 save(italian_coronav_tweets, file = "italian_coronav_tweets.RData")
 
-
+italian_coronav_tweets1 <- search_tweets2(
+  c("coronavirus"), n = 50000, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = "1226838889387757570"
+)
+#16115 new observations from 11-02 to 13-02 h 10.38
+save(italian_coronav_tweets1, file = "italian_coronav_tweets1.RData")
 
 
 
