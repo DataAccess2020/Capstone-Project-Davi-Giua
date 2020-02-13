@@ -10,8 +10,18 @@ both_keywords <- search_tweets(
   lang = "it"
 )
 save(both_keywords, file = "both_keywords_ita.RData")
-# this one retrieves 544 observations from 02-02 to 11-02 (ran at 11.20 of 11/02.)
+# this one retrieves 330 observations from 02-02 to 12-02 (ran at 11.20 of 11/02.)
 
+both_keywords1 <- search_tweets(
+  "#coronavirus OR coronavirus, #fakenews OR fakenews OR fake news", 
+  n = 18000, 
+  retryonratelimit = TRUE, 
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = "1227637473427283969"
+)
+save(both_keywords1, file = "both_keywords1_ita.RData")
+#14 new observations from 12-02 to 13-02 h 10.28
 
 italian_coronav_tweets <- search_tweets2(
   c("coronavirus"), n = 50000, 
@@ -19,9 +29,10 @@ italian_coronav_tweets <- search_tweets2(
   include_rts = FALSE, 
   lang = "it"
 )
-#this retrieves 49757 observations. 
-
+ 
 save(italian_coronav_tweets, file = "italian_coronav_tweets.RData")
+#this retrieves 49757 observations from 02-02 to 10-02.
+
 
 italian_coronav_tweets1 <- search_tweets2(
   c("coronavirus"), n = 50000, 
