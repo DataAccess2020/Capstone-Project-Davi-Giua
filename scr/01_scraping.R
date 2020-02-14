@@ -45,5 +45,18 @@ italian_coronav_tweets1 <- search_tweets2(
 save(italian_coronav_tweets1, file = "italian_coronav_tweets1.RData")
 
 
+#trying to create a loop to repeate the download of data: 
 
+min_id_prev_run <- min(italian_coronav_tweets$status_id)
 
+italian_coronav_tweets2 <- search_tweets2(
+  c("coronavirus"), n = 50000, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = min_id_prev_run
+)
+
+#found 39723 new results
+#saving them: 
+save(italian_coronav_tweets2, file ="italian_coronav_tweets2.RData")
