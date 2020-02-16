@@ -34,14 +34,14 @@ both_keywords_old <- search_tweets(
   max_id = "1227637473427283969"
 )
 save(both_keywords_old, file = "both_keywords_ita_old.RData")
+#this one retrieves only 92 observations from 07-02 to 12-02 
 
 
 
 
 
 
-
-
+#Downloading the new dataset containing only the word "coronavirus" that will be compared to the first dataset with both key words
 
 italian_coronav_tweets <- search_tweets2(
   c("coronavirus"), n = 50000, 
