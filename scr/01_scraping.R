@@ -23,6 +23,26 @@ both_keywords1 <- search_tweets(
 save(both_keywords1, file = "both_keywords1_ita.RData")
 #14 new observations from 12-02 to 13-02 h 10.28
 
+#Trying to download the first dataset we didn't save "both_keywords_ita"
+
+both_keywords_old <- search_tweets(
+  "#coronavirus OR coronavirus, #fakenews OR fakenews OR fake news", 
+  n = 18000, 
+  retryonratelimit = TRUE, 
+  include_rts = FALSE, 
+  lang = "it",
+  max_id = "1227637473427283969"
+)
+save(both_keywords_old, file = "both_keywords_ita_old.RData")
+
+
+
+
+
+
+
+
+
 italian_coronav_tweets <- search_tweets2(
   c("coronavirus"), n = 50000, 
   retryonratelimit = TRUE,
