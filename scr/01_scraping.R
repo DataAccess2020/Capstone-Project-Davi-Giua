@@ -1,4 +1,4 @@
-#This is the file dedicated to the collection of data 
+#This is the script dedicated to the collection of data 
 
 #We want to download tweets that contain both the word "coronavirus" and "fake news", that could be 
 #written in different ways: 
@@ -10,38 +10,35 @@ both_keywords <- search_tweets(
   lang = "it"
 )
 save(both_keywords, file = "both_keywords_ita.RData")
-# this one retrieves 330 observations from 02-02 to 12-02 (ran at 11.20 of 11/02.)
+# this one retrieves 544 observations from 02 Feb to 11 Feb 2020
 
-both_keywords1 <- search_tweets(
+
+
+both_keywords_second <- search_tweets(
   "#coronavirus OR coronavirus, #fakenews OR fakenews OR fake news", 
-  n = 18000, 
+  n = 50000, 
   retryonratelimit = TRUE, 
   include_rts = FALSE, 
   lang = "it",
-  since_id = "1227637473427283969"
+  since_id = "1227153622074580993"
 )
-save(both_keywords1, file = "both_keywords1_ita.RData")
-#14 new observations from 12-02 to 13-02 h 10.28
-
-#Trying to download the first dataset we didn't save "both_keywords_ita"
-
-both_keywords_old <- search_tweets(
-  "#coronavirus OR coronavirus, #fakenews OR fakenews OR fake news", 
-  n = 18000, 
-  retryonratelimit = TRUE, 
-  include_rts = FALSE, 
-  lang = "it",
-  max_id = "1227637473427283969"
-)
-save(both_keywords_old, file = "both_keywords_ita_old.RData")
-#this one retrieves only 92 observations from 07-02 to 12-02 
+save(both_keywords_second, file = "both_keywords_second.RData")
+#this dataset gets back 114 observations from 11 Feb to 17 Feb 2020
 
 
 
 
 
 
-#Downloading the new dataset containing only the word "coronavirus" that will be compared to the first dataset with both key words
+
+
+
+
+
+
+
+#Downloading a new dataset containing only the word "coronavirus"
+#that will be compared to the first dataset with both key words
 
 italian_coronav_tweets <- search_tweets2(
   c("coronavirus"), n = 50000, 
