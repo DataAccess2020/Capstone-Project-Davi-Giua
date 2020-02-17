@@ -51,15 +51,15 @@ save(italian_coronav_tweets, file = "italian_coronav_tweets.RData")
 #this retrieves 49757 observations from 02-02 to 10-02.
 
 
-italian_coronav_tweets1 <- search_tweets2(
+italian_coronav_tweets_second <- search_tweets2(
   c("coronavirus"), n = 50000, 
   retryonratelimit = TRUE,
   include_rts = FALSE, 
   lang = "it",
-  since_id = "1226838889387757570"
+  since_id = "1226838890838974464"
 )
-#16115 new observations from 11-02 to 13-02 h 10.38
-save(italian_coronav_tweets1, file = "italian_coronav_tweets1.RData")
+# new observations from 
+save(italian_coronav_tweets_second, file = "italian_coronav_tweets_second.RData")
 
 
 #trying to create a loop to repeate the download of data: 
