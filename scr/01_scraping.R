@@ -48,7 +48,7 @@ italian_coronav_tweets <- search_tweets2(
 )
  
 save(italian_coronav_tweets, file = "italian_coronav_tweets.RData")
-#this retrieves 49757 observations from 02-02 to 10-02.
+#this retrieves 49757 observations from Feb 02 to Feb 10.
 
 
 italian_coronav_tweets_second <- search_tweets2(
@@ -58,7 +58,7 @@ italian_coronav_tweets_second <- search_tweets2(
   lang = "it",
   since_id = "1226838890838974464"
 )
-# new observations from 
+# new observations from .....[run it and find out or just delete the code and run the following one]
 save(italian_coronav_tweets_second, file = "italian_coronav_tweets_second.RData")
 
 
@@ -74,6 +74,6 @@ italian_coronav_tweets2 <- search_tweets2(
   since_id = min_id_prev_run
 )
 
-#found 39723 new results
+#found 39723 new results from Feb 5 to Feb 14 (run it again(sovrascrivilo che tanto queste date già ce le abbiamo))
 #saving them: 
 save(italian_coronav_tweets2, file ="italian_coronav_tweets2.RData")
