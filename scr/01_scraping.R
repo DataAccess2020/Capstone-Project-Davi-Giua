@@ -80,12 +80,6 @@ save(italian_coronav_tweets2, file ="italian_coronav_tweets2.RData")
 
 
 
-# recap: 
-#for the coronavirus tweets we have: 
-# - italian_coronav_tweets -> scraped on 10/02, collecting tweets from 02/02 to 10/02 at 10.34
-# - italian_coronav_tweets1 -> scraped on 13/02, collecting tweets from 10/02 at 12.02 to 13/02 at 10.38 
-# - italian_coronav_tweets2 -> scraped on 14/02, collecting tweets from 05/02 at 20.16 to 14/02 at 10.33
-
 
 #downloading the last piece of data on 18/02: 
 max_id_coronav_tweets2 <- max(italian_coronav_tweets2$status_id)
@@ -117,15 +111,15 @@ italian_coronav_tweets1_1802 <- search_tweets2(
 save(italian_coronav_tweets1_1802, file = "italian_coronav_tweets1_1802.RData")
 #retrieved 35727 observations from 10/02 at 10.34 to 18/02 at 10.49
 
-#retrieving data starting from the most recent of italian_coronav_tweets1 
-max_id_coronav_tweets1 <- max(italian_coronav_tweets1$status_id)
 
-italian_conav_tweets3b <- search_tweets2(
-  c("coronavirus"), n=50000, 
-  retryonratelimit = TRUE, 
-  include_rts = FALSE, 
-  lang = "it", 
-  since_id = max_id_coronav_tweets1
-)
-# wait a sec 
 
+# recap: 
+#for the coronavirus tweets we have: 
+# - italian_coronav_tweets -> scraped on 10/02, collecting tweets from 02/02 to 10/02 at 10.34
+# - italian_coronav_tweets1 -> scraped on 13/02, collecting tweets from 10/02 at 12.02 to 13/02 at 10.38 
+# - italian_coronav_tweets2 -> scraped on 14/02, collecting tweets from 05/02 at 20.16 to 14/02 at 10.33
+# - italian_coronav_tweets3 -> scraped on 18/02, collecting tweets from 14/02 at 10.34 to 18/02 at 10.59 
+# - italian_coronav_tweets_1_1802 -> scraped on 18/02, collecting tweets from 10/02 at 10.34 to 18/02 at 10.49
+
+
+# Suggestion: should we keep only the data from coronav_tweets and coronav_tweets_1_1802 ? they cover the time span from 02/02 to 18/02.
