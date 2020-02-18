@@ -77,3 +77,26 @@ italian_coronav_tweets2 <- search_tweets2(
 #found 39723 new results from Feb 5 to Feb 14 (run it again(sovrascrivilo che tanto queste date già ce le abbiamo))
 #saving them: 
 save(italian_coronav_tweets2, file ="italian_coronav_tweets2.RData")
+
+
+
+# recap: 
+#for the coronavirus tweets we have: 
+# - italian_coronav_tweets -> scraped on 10/02, collecting tweets from 02/02 to 10/02 at 10.34
+# - italian_coronav_tweets1 -> scraped on 13/02, collecting tweets from 10/02 at 12.02 to 13/02 at 10.38 
+# - italian_coronav_tweets2 -> scraped on 14/02, collecting tweets from 05/02 at 20.16 to 14/02 at 10.33
+
+
+#downloading the last piece of data on 18/02: 
+max_id_coronav_tweets2 <- max(italian_coronav_tweets2$status_id)
+
+italian_coronav_tweets3 <- search_tweets2(
+  c("coronavirus"), n = 50000, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = max_id_coronav_tweets2
+)
+
+save(italian_coronav_tweets3, file = "italian_coronav_tweets3.RData")
+#retrieved 14970 observations as of 18.02 at 10.58
