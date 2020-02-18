@@ -100,3 +100,32 @@ italian_coronav_tweets3 <- search_tweets2(
 
 save(italian_coronav_tweets3, file = "italian_coronav_tweets3.RData")
 #retrieved 14970 observations as of 18.02 at 10.58
+#italian_coronav_tweets3 -> scraped on 18/02, collecting tweets from 14/02 at 10.34 to 18/02 at 10.59 
+
+
+#let's try to retrieve data from the most recent tweet of italian_conav_tweets1 
+
+max_id_coronav_tweets <- max(italian_coronav_tweets$status_id)
+
+italian_coronav_tweets1_1802 <- search_tweets2(
+  c("coronavirus"), n = 50000, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = max_id_coronav_tweets
+)
+save(italian_coronav_tweets1_1802, file = "italian_coronav_tweets1_1802.RData")
+#retrieved 35727 observations from 10/02 at 10.34 to 18/02 at 10.49
+
+#retrieving data starting from the most recent of italian_coronav_tweets1 
+max_id_coronav_tweets1 <- max(italian_coronav_tweets1$status_id)
+
+italian_conav_tweets3b <- search_tweets2(
+  c("coronavirus"), n=50000, 
+  retryonratelimit = TRUE, 
+  include_rts = FALSE, 
+  lang = "it", 
+  since_id = max_id_coronav_tweets1
+)
+# wait a sec 
+
