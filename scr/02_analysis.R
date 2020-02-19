@@ -17,7 +17,7 @@ cv_fk_plot
 
 #saving the plot
 ggsave(cv_fk_plot, filename = "BothKeywords_Freq_plot.png",
-       device = cairo_pdf, width = 10, height = 4)
+        width = 10, height = 4)
 
 #Now I'm starting the text analysis
 #removing http elements manually
@@ -36,10 +36,12 @@ cleaned_tweets_bothkeywords <- both_keywords_dataset1 %>%
   anti_join(get_stopwords(language = "it", source= "snowball")) %>%
   filter(!str_detect(word, '\\d+')) %>%
   filter(!str_detect(word, '[[:punct:]]')) %>% 
-  filter(!str_detect(word, unnecessary_words))
+  filter(!str_detect(word, unnecessary_words)) 
+
+
 
 #Finding the top 10 commonly used words among the tweets
-cleaned_tweets_bothkeywords %>% 
+Top_10_words_plot <- cleaned_tweets_bothkeywords %>% 
   count(word, sort = TRUE) %>% 
   top_n(10) %>% 
   mutate(word = reorder(word, n)) %>% 
@@ -50,7 +52,18 @@ cleaned_tweets_bothkeywords %>%
   theme_classic() +
   labs(x = "Count",
        y = "Unique words",
-       title = "Top 10 words found in #corovirus #fakenews tweets")
-  
-  
- 
+       title = "Top 10 words found in #coronavirus #fakenews tweets")
+#saving the horizontal barplot
+ggsave(Top_10_words_plot, filename = "Top_10_words_plot.png",
+        width = 10, height = 4)
+
+#creating the Word Cloud
+
+cleaned_tweets_bothkeywords %>% 
+  count(word) %>% 
+  with(wordcloud(word, n, max.words = 50, scale=c(2.2,0.70),(min.freq=5), colors=brewer.pal(8, "Dark2"),
+                 random.color=T, random.order=F))
+
+
+
+
