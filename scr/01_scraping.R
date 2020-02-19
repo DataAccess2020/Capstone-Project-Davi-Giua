@@ -10,7 +10,7 @@ both_keywords <- search_tweets(
   lang = "it"
 )
 save(both_keywords, file = "both_keywords_ita.RData")
-# this one retrieves 544 observations from 02 Feb to 11 Feb 2020
+# this one retrieves 544 observations from 03 Feb to 11 Feb 2020
 
 
 
