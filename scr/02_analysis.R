@@ -53,6 +53,7 @@ Top_10_words_plot <- cleaned_tweets_bothkeywords %>%
   labs(x = "Count",
        y = "Unique words",
        title = "Top 10 words found in #coronavirus #fakenews tweets")
+       
 #saving the horizontal barplot
 ggsave(Top_10_words_plot, filename = "Top_10_words_plot.png",
         width = 10, height = 4)
