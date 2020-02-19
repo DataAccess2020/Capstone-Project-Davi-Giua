@@ -9,11 +9,12 @@ library(ggplot2)
 
 ts_plot(italian_coronavirus_dataset, "1 hour") +
   ggplot2::theme_minimal() +
-  scale_x_datetime(date_minor_breaks = "1 day", date_breaks = "1 day")+
+  scale_x_datetime(date_minor_breaks = "1 day", date_breaks = "1 day", date_labels = "%b %d")+
   ggplot2::theme(plot.title = ggplot2::element_text(face = "bold")) +
   ggplot2::labs(
     x = "Date", y = "Frequency",
     title = "Frequency of italian tweets relating to coronavirus from Feb 2nd to Feb 18th"
   )
 
-scale_x_
+scale_x_date
+scale_x_date(date_labels = "%W")
