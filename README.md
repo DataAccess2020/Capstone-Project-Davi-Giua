@@ -16,7 +16,7 @@ We are going to:
 
 - visualize what are the words that are most used in these tweets, to try and develop some understanding of what the public thinks about the combination of these two phenomena;
 
-- conduct a sentiment analysis;
+- perform a sentiment analysis;
 
 - compare the two datasets.
 
