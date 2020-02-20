@@ -22,7 +22,7 @@ We are going to:
 
 ## Collecting data
 First of all, we collected the first dataset of tweets containing #coronavirus and #fakenews from February the 3rd to Feb the 17th, then we scraped the second dataset of tweets containing only the word "coronavirus" from Feb the 2nd to Feb the 18th. Both the dataset include only italian tweets. 
-After that, we started our text and sentiment analysis on each dataset.
+
 
 
 ## Packages used
