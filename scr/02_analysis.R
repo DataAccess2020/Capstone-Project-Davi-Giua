@@ -58,7 +58,7 @@ Top_10_words_plot <- cleaned_tweets_bothkeywords %>%
 ggsave(Top_10_words_plot, filename = "Top_10_words_plot.png",
         width = 10, height = 4)
 
-#creating the Word Cloud
+#creating the bag of words
 
 cleaned_tweets_bothkeywords %>% 
   count(word) %>% 
