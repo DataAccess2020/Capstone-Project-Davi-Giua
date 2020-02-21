@@ -67,9 +67,27 @@ cleaned_tweets_bothkeywords %>%
 
 
 #starting the sentiment analysis
+#I'm creating a new dataframe containing only the variable "text"
+both_keywords_dataset2 <- both_keywords_dataset %>% 
+  select(stripped_text) %>% 
+  unnest_tokens(text, stripped_text)
 
-opeNER <- import("")
-head(opeNER)
+cleaned_text <- both_keywords_dataset2 %>% 
+  anti_join(get_stopwords(language = "it", source= "stopwords-iso")) %>%
+  anti_join(get_stopwords(language = "it", source= "snowball")) %>%
+  filter(!str_detect(text, '\\d+')) %>%
+  filter(!str_detect(text, '[[:punct:]]')) %>% 
+  filter(!str_detect(text, unnecessary_words)) 
 
-dpm <- import("")
-head(dpm)
+
+
+
+
+
+
+coronav_fakenews <- corpus(
+  both_keywords_dataset2
+)
+
+summary(corp_it)
+
