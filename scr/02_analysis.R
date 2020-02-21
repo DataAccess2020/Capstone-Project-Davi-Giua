@@ -38,7 +38,8 @@ cleaned_tweets_bothkeywords <- both_keywords_dataset1 %>%
   filter(!str_detect(word, '[[:punct:]]')) %>% 
   filter(!str_detect(word, unnecessary_words)) 
 
-
+#Saving the new cleaned dataset
+save(cleaned_tweets_bothkeywords, file = "cleaned_tweets_bothkeywords.RData")
 
 #Finding the top 10 commonly used words among the tweets
 Top_10_words_plot <- cleaned_tweets_bothkeywords %>% 
@@ -65,29 +66,160 @@ cleaned_tweets_bothkeywords %>%
   with(wordcloud(word, n, max.words = 50, scale=c(2.2,0.70),(min.freq=5), colors=brewer.pal(8, "Dark2"),
                  random.color=T, random.order=F))
 
+#Sentiment analysis
 
-#starting the sentiment analysis
-#I'm creating a new dataframe containing only the variable "text"
-both_keywords_dataset2 <- both_keywords_dataset %>% 
-  select(stripped_text) %>% 
-  unnest_tokens(text, stripped_text)
+# Read file and find the nodes
+opeNER_xml <- read_xml("./lexicon/it-sentiment_lexicon.lmf.xml")
+entries <- xml_find_all(opeNER_xml, ".//LexicalEntry")
+lemmas <- xml_find_all(opeNER_xml, ".//Lemma")
+confidence <- xml_find_all(opeNER_xml, ".//Confidence")
+sentiment <- xml_find_all(opeNER_xml, ".//Sentiment")
 
-cleaned_text <- both_keywords_dataset2 %>% 
-  anti_join(get_stopwords(language = "it", source= "stopwords-iso")) %>%
-  anti_join(get_stopwords(language = "it", source= "snowball")) %>%
-  filter(!str_detect(text, '\\d+')) %>%
-  filter(!str_detect(text, '[[:punct:]]')) %>% 
-  filter(!str_detect(text, unnecessary_words)) 
-
-
-
-
-
-
-
-coronav_fakenews <- corpus(
-  both_keywords_dataset2
+# Parse and put in a data frame
+opeNER_df <- data.frame(
+  id = xml_attr(entries, "id"),
+  lemma = xml_attr(lemmas, "writtenForm"),
+  partOfSpeech = xml_attr(entries, "partOfSpeech"),
+  confidenceScore = as.numeric(xml_attr(confidence, "score")),
+  method = xml_attr(confidence, "method"),
+  polarity = as.character(xml_attr(sentiment, "polarity")),
+  stringsAsFactors = F
 )
 
-summary(corp_it)
+# Fix a mistake
+opeNER_df$polarity <- ifelse(opeNER_df$polarity == "neutral", 
+                             "neutral", opeNER_df$polarity)
 
+# Make quanteda dictionary: 
+opeNER_dict <- quanteda::dictionary(with(opeNER_df, split(lemma, polarity)))
+
+# Saving it locally: 
+write.csv(opeNER_df, file = "opeNER_df.csv")
+
+# Import it: 
+opeNER <- rio::import("./lexicon/opeNER_df.csv")
+head(opeNER)
+
+# Words without polarity: 
+table(opeNER$polarity, useNA = "always")
+opeNER <- opeNER %>%
+  filter(polarity != "")
+
+# Depeche Mood: 
+dpm <- rio::import("./lexicon/DepecheMood_italian_token_full.tsv")
+head(dpm)
+
+
+#Sentiment analysis
+opeNERdict <- quanteda::dictionary(
+  split(opeNER$lemma, opeNER$polarity)
+)
+lengths(opeNERdict)
+
+# Create the a dataset with the text (as character) and the section(filtered)
+corona_sentiment <-  both_keywords_dataset %>% 
+  select(text) 
+
+#Creating corpus with quanteda package
+
+corpus_tweets <- corpus(corona_sentiment)
+summary(corpus_tweets)
+names(corpus_tweets)
+
+# create the DFM for the sentiment analysis: 
+corona_dfm <- dfm(
+  corpus_tweets,
+  tolower = T,
+  dictionary = opeNERdict
+) 
+
+head(corona_dfm)
+
+# SENTIMENT GRAPH --> cercare su internet
+#quanteda plot
+ 
+  
+
+
+## SENTIMENT WITH CONTINOUS CATEGORIES: analysis of the emotions
+# Creating vectors for each categories of the DPM, each is weighted:
+# saving the words from DPM in a vector: 
+dpm_words <- dpm$V1
+
+# Creating vectors for each categories of the DPM, each is weighted:
+# 1. Indignato / Outrage: 
+dpm_ind <- dpm$INDIGNATO
+names(dpm_ind) <- dpm_words
+
+# 2. Preoccupato / Worried:
+dpm_pre <- dpm$PREOCCUPATO
+names(dpm_pre) <- dpm_words
+
+# 3. Triste / Sad: 
+dpm_sad <- dpm$TRISTE
+names(dpm_sad) <- dpm_words
+
+# 4. Divertito / Entertained: 
+dpm_div <- dpm$DIVERTITO
+names(dpm_div) <- dpm_words
+
+# 5. Soddisfatto / Pleased: 
+dpm_sat <- dpm$SODDISFATTO
+names(dpm_sat) <- dpm_words
+
+# creating a DFM: 
+cv_fn_sentiment <- dfm(
+  corpus_tweets,
+  tolower = T,
+  select = dpm_words
+)
+cv_fn_sentiment
+
+# 1. Indignato
+cv_fn_indignato <- cv_fn_sentiment %>%
+  dfm_weight(scheme = "prop") %>%
+  dfm_weight(weights = dpm_ind) %>%
+  rowSums() %>%
+  as.data.frame() %>%
+  rename(Indignato = ".")
+  
+
+# 2. Preoccupato
+cv_fn_preoccupato <- cv_fn_sentiment %>%
+  dfm_weight(scheme = "prop") %>%
+  dfm_weight(weights = dpm_pre) %>%
+  rowSums() %>%
+  as.data.frame() %>%
+  rename(Preoccupato = ".")
+
+# 3. Triste
+cv_fn_triste <- cv_fn_sentiment %>%
+  dfm_weight(scheme = "prop") %>%
+  dfm_weight(weights = dpm_sad) %>%
+  rowSums() %>%
+  as.data.frame() %>%
+  rename(Triste = ".")
+
+# 4. Divertito
+cv_fn_divertito <- cv_fn_sentiment %>%
+  dfm_weight(scheme = "prop") %>%
+  dfm_weight(weights = dpm_div) %>%
+  rowSums() %>%
+  as.data.frame() %>%
+  rename(Divertito = ".")
+
+# 5. Soddisfatto
+cv_fn_soddisfatto <- cv_fn_sentiment %>%
+  dfm_weight(scheme = "prop") %>%
+  dfm_weight(weights = dpm_sat) %>%
+  rowSums() %>%
+  as.data.frame() %>%
+  rename(Soddisfatto = ".")
+
+# grouping emotion together: 
+cv_fk_emotions <- bind_cols(
+  cv_fn_indignato, cv_fn_preoccupato, cv_fn_triste, cv_fn_divertito, cv_fn_soddisfatto 
+)
+cv_fk_emotions
+
+#Graph Emotions --> cercare su internet
