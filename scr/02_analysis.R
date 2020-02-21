@@ -66,5 +66,10 @@ cleaned_tweets_bothkeywords %>%
                  random.color=T, random.order=F))
 
 
+#starting the sentiment analysis
 
+opeNER <- import("")
+head(opeNER)
 
+dpm <- import("")
+head(dpm)

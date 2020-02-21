@@ -8,5 +8,5 @@ library(SnowballC)
 library(wordcloud)
 library(RColorBrewer)
 library(textmining)
-
+library(rio)
 
