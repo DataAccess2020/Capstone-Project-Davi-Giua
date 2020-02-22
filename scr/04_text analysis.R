@@ -72,3 +72,13 @@ Top_10_words_plot
 ggsave(Top_10_words_plot_coronavirus, filename = "Top_10_words_plot_coronavirus.png",
        
        width = 10, height = 4)
+
+# Visualizing a bag of words 
+cleaned_coronavirus %>% 
+  
+  count(word) %>% 
+  
+  with(wordcloud(word, n, max.words = 50, scale=c(2.2,0.70),(min.freq=5), colors=brewer.pal(8, "Dark2"),
+                 
+                 random.color=T, random.order=F))
+
