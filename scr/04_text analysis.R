@@ -39,3 +39,30 @@ cleaned_coronavirus <- italian_coronavirus_dataset_new %>%
 
 save(cleaned_coronavirus, file = "cleaned_coronavirus.RData")
 
+# Now we want to visualize the ten most used words 
+
+
+Top_10_words_plot <- cleaned_coronavirus %>% 
+  
+  count(word, sort = TRUE) %>% 
+  
+  top_n(10) %>% 
+  
+  mutate(word = reorder(word, n)) %>% 
+  
+  ggplot(aes(x=word, y=n)) +
+  
+  geom_col() +
+  
+  xlab (NULL) +
+  
+  coord_flip() +
+  
+  theme_classic() +
+  
+  labs(x = "Count",
+       
+       y = "Unique words",
+       
+       title = "10 most used words found in tweets relating to Coronavirus")
+Top_10_words_plot
