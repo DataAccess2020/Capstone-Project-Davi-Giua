@@ -82,3 +82,12 @@ cleaned_coronavirus %>%
                  
                  random.color=T, random.order=F))
 
+cleaned_coronavirus %>% 
+  
+  count(word) %>% 
+  
+  with(wordcloud(word, n, max.words = 50, scale = c(2, 1),(min.freq=5), colors=brewer.pal(8, "Dark2"),
+                 
+                 random.color=T, random.order=F))
+
+
