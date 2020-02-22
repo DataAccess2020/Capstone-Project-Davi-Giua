@@ -1,7 +1,5 @@
 #Let's try and do some text analysis on the tweets relating to coronavirus. 
 
-save(italian_coronavirus_dataset, file = "italian_coroonavirus_dataset_json.json")
-
 install.packages("quanteda")
 
 # First, removing the http elements
@@ -171,4 +169,33 @@ opeNERdict <- quanteda::dictionary(
 lengths(opeNERdict)
 
 
+
+# We need to create a dataset with the text (as character) and the section(filtered)
+
+coronavirus_sentiment <-    italian_coronavirus_dataset%>%
+  
+  select(text) 
+
+#Creating corpus with the quanteda package
+
+corpus_tweets_coronavirus <- corpus(coronavirus_sentiment)
+
+summary(corpus_tweets_coronavirus)
+
+names(corpus_tweets_coronavirus)
+
+# create the DFM for the sentiment analysis: 
+
+coronavirus_dfm <- dfm(
+  
+  corpus_tweets_coronavirus,
+  
+  tolower = T,
+  
+  dictionary = opeNERdict
+  
+) 
+
+
+head(coronavirus_dfm)
 
