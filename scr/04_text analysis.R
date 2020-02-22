@@ -89,7 +89,7 @@ VUSentimentLexicon/IT-lexicon/it-sentiment_lexicon.lmf
 
 # Read file and find the nodes
 
-opeNER_xml <- read_xml("./lexicon/it-sentiment_lexicon.lmf.xml")
+opeNER_xml <- read_xml("it-sentiment_lexicon.lmf.xml")
 
 entries <- xml_find_all(opeNER_xml, ".//LexicalEntry")
 
@@ -98,3 +98,23 @@ lemmas <- xml_find_all(opeNER_xml, ".//Lemma")
 confidence <- xml_find_all(opeNER_xml, ".//Confidence")
 
 sentiment <- xml_find_all(opeNER_xml, ".//Sentiment")
+
+# Parse and put in a data frame
+
+opeNER_df <- data.frame(
+  
+  id = xml_attr(entries, "id"),
+  
+  lemma = xml_attr(lemmas, "writtenForm"),
+  
+  partOfSpeech = xml_attr(entries, "partOfSpeech"),
+  
+  confidenceScore = as.numeric(xml_attr(confidence, "score")),
+  
+  method = xml_attr(confidence, "method"),
+  
+  polarity = as.character(xml_attr(sentiment, "polarity")),
+  
+  stringsAsFactors = F
+  
+)
