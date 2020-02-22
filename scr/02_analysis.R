@@ -87,7 +87,7 @@ opeNER_df <- data.frame(
 )
 
 # Fix a mistake
-opeNER_df$polarity <- ifelse(opeNER_df$polarity == "neutral", 
+opeNER_df$polarity <- ifelse(opeNER_df$polarity == "nneutral", 
                              "neutral", opeNER_df$polarity)
 
 # Make quanteda dictionary: 
@@ -137,8 +137,7 @@ head(corona_dfm)
 
 # SENTIMENT GRAPH --> cercare su internet
 #quanteda plot
- 
-  
+
 
 
 ## SENTIMENT WITH CONTINOUS CATEGORIES: analysis of the emotions
@@ -222,4 +221,14 @@ cv_fk_emotions <- bind_cols(
 )
 cv_fk_emotions
 
-#Graph Emotions --> cercare su internet
+#Graph Emotions 
+barplot(colSums(cv_fk_emotions),  col = c("red", "darkseagreen2", "steelblue", "darkorange", "darkslategray1"),
+        ylab = "Counts",
+        main = "Number of times each emotion is expressed in the tweets")
+
+ggplot(cv_fk_emotions, aes(x=, y=percent, color=sentiment, group=sentiment)) +
+  geom_line(size=1) +
+  geom_point(size=0.5) +
+  xlab("day") +
+  ylab("Emotion words count (%)") +
+  ggtitle("Emotion words expressed in the #coronavirus #fakenews tweets")

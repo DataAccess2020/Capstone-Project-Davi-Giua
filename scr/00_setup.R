@@ -13,3 +13,5 @@ library(quanteda)
 library(xml2)
 library(ggplot2)
 library(tidyverse)
+library(reshape2)
+
