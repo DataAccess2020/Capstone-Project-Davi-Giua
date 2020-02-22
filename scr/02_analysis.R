@@ -1,8 +1,10 @@
-#Analysis
-#Merging datasets
+#ANALYSIS
+
+#Merging the datasets to have all the 658 observation containing the keywords 
+#'coronavirus' and 'fakenews' from Feb the 3rd to Feb 17 together
 both_keywords_dataset <- rbind(both_keywords, both_keywords_second)
 save(both_keywords_dataset, file = "both_keywords_fulldataset.RData")
-#Now I have 658 observation containing the keywords 'coronavirus' and 'fakenews' from Feb the 3rd to Feb 17
+
 
 #Plotting tweets frequency over the past two weeks (from Feb 3rd to Feb 17th)
 cv_fk_plot <- ts_plot(both_keywords_dataset, "1 hours") +
@@ -146,7 +148,7 @@ head(corona_dfm)
 dpm_words <- dpm$V1
 
 # Creating vectors for each categories of the DPM, each is weighted:
-# 1. Indignato / Outrage: 
+# 1. Indignato / Outraged: 
 dpm_ind <- dpm$INDIGNATO
 names(dpm_ind) <- dpm_words
 
