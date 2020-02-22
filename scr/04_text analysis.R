@@ -83,5 +83,18 @@ wordcloud_coronavirus <- cleaned_coronavirus %>%
                  
                  random.color=T, random.order=F))
 
-#saving the wordcloud
-save(wordcloud_coronavirus, file = "Wordcloud_coronavirus.png")
+
+#Sentiment analysis
+VUSentimentLexicon/IT-lexicon/it-sentiment_lexicon.lmf
+
+# Read file and find the nodes
+
+opeNER_xml <- read_xml("./lexicon/it-sentiment_lexicon.lmf.xml")
+
+entries <- xml_find_all(opeNER_xml, ".//LexicalEntry")
+
+lemmas <- xml_find_all(opeNER_xml, ".//Lemma")
+
+confidence <- xml_find_all(opeNER_xml, ".//Confidence")
+
+sentiment <- xml_find_all(opeNER_xml, ".//Sentiment")
