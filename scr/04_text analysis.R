@@ -42,7 +42,7 @@ save(cleaned_coronavirus, file = "cleaned_coronavirus.RData")
 # Now we want to visualize the ten most used words 
 
 
-Top_10_words_plot <- cleaned_coronavirus %>% 
+Top_10_words_plot_coronavirus <- cleaned_coronavirus %>% 
   
   count(word, sort = TRUE) %>% 
   
@@ -66,3 +66,9 @@ Top_10_words_plot <- cleaned_coronavirus %>%
        
        title = "10 most used words found in tweets relating to Coronavirus")
 Top_10_words_plot
+
+#saving the plot
+
+ggsave(Top_10_words_plot_coronavirus, filename = "Top_10_words_plot_coronavirus.png",
+       
+       width = 10, height = 4)
