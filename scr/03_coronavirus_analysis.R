@@ -1,10 +1,10 @@
 #working on Coronavirus
 
-#Merging datasets
+#First of all let's merge the two datasets to have only one for all the "coronavirus" tweets
 italian_coronavirus_dataset <- rbind(italian_coronav_tweets, italian_coronav_tweets1_1802)
 save(italian_coronavirus_dataset, file = "italian_coronavirus_fulldataset.RData")
 
-#plotting the frequencies of the tweets
+#Now let's plot the frequencies of these tweets along the time series. 
 library(ggplot2)
 
 frequency_plot <- ts_plot(italian_coronavirus_dataset, "1 hour") +
@@ -16,5 +16,6 @@ frequency_plot <- ts_plot(italian_coronavirus_dataset, "1 hour") +
     title = "Frequency of italian tweets relating to coronavirus from Feb 2nd to Feb 18th"
   )
 
+#Finally, let's save the plot
 ggsave(frequency_plot, filename = "Frequency plot for coronavirus.pdf",
        device = cairo_pdf, width = 10, height = 4)
