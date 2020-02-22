@@ -1,5 +1,5 @@
 # Capstone Project Davi-Giua
-# The spreading of fear through social media: #fakenews and #coronavirus
+# *The spreading of fear through social media: #fakenews and #coronavirus*
 
 ## Introduction
 This is the repository for the capstone project of Valentina Davì and Federica Giua, the final assignment for the Data Access II Module exam. We are from the DAPS&Co program, University of Milan new master's degree and we are learning how to scrape data from the web, and to conduct text and sentiment analyses. This project is also a way to show what we have learned in class and also to improve our skills.
@@ -20,12 +20,23 @@ We are going to:
 
 - compare the two datasets.
 
-## Collecting data
-First of all, we collected the first dataset of tweets containing #coronavirus and #fakenews from February the 3rd to Feb the 17th, then we scraped the second dataset of tweets containing only the word "coronavirus" from Feb the 2nd to Feb the 18th. Both the dataset include only italian tweets. 
+## Data gathering
+First of all, we collected the first dataset of tweets containing #coronavirus and #fakenews from February the 3rd to Feb the 17th, then we scraped the second dataset of tweets containing only the word "coronavirus" from Feb the 2nd to Feb the 18th. Both the dataset include only italian tweets and were collected with rtweet package. 
 
+## Folders structure
+## Folders 
+
+Folder | What's in it
+------------ | -------------
+src | R scripts
+Data | Datasets files 
+Plots | the plots 
+Figs | the bag of words
+Lexicon | the dictionaries used for the sentiment/emotion analysis
+Junk | deleted files
 
 
 ## Packages used
-rtweet, rbind, dplyr, tidytext, stringr, SnowballC, wordcloud, RColorBrewer, textmining
+rtweet, rbind, dplyr, tidytext, stringr, SnowballC, wordcloud, RColorBrewer, textmining, rio, quanteda, xlm2, ggplot2, tidyverse, reshape2
 
 
