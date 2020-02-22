@@ -1,2 +1,4 @@
 #setting up 
 library(rtweet)
+library(tidyverse)
+library(tidytext)
