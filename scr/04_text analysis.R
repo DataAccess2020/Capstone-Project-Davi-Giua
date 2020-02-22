@@ -118,3 +118,57 @@ opeNER_df <- data.frame(
   stringsAsFactors = F
   
 )
+
+
+# Fix a mistake
+
+opeNER_df$polarity <- ifelse(opeNER_df$polarity == "nneutral", 
+                             
+                             "neutral", opeNER_df$polarity)
+
+
+
+# Make quanteda dictionary: 
+
+opeNER_dict <- quanteda::dictionary(with(opeNER_df, split(lemma, polarity)))
+
+
+
+# Saving it locally: 
+
+write.csv(opeNER_df, file = "opeNER_df.csv")
+
+# Import it: 
+
+opeNER <- rio::import("opeNER_df.csv")
+
+head(opeNER)
+
+
+
+# Words without polarity: 
+
+table(opeNER$polarity, useNA = "always")
+
+opeNER <- opeNER %>%
+  
+  filter(polarity != "")
+
+# Depeche Mood: 
+
+dpm <- rio::import("DepecheMood_italian_token_full.tsv")
+
+head(dpm)
+
+#Sentiment analysis
+
+opeNERdict <- quanteda::dictionary(
+  
+  split(opeNER$lemma, opeNER$polarity)
+  
+)
+
+lengths(opeNERdict)
+
+
+
