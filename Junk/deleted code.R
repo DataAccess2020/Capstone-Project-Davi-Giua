@@ -108,3 +108,28 @@ italian_coronav_tweets3 <- search_tweets2(
 save(italian_coronav_tweets3, file = "italian_coronav_tweets3.RData")
 #retrieved 14970 observations as of 18.02 at 10.58
 #italian_coronav_tweets3 -> scraped on 18/02, collecting tweets from 14/02 at 10.34 to 18/02 at 10.59 
+
+italian_coronav_tweets_second <- search_tweets2(
+  c("coronavirus"), n = 50000, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = "1226838890838974464"
+)
+# new observations from .....[run it and find out or just delete the code and run the following one]
+save(italian_coronav_tweets_second, file = "italian_coronav_tweets_second.RData")
+
+
+min_id_prev_run <- min(italian_coronav_tweets$status_id)
+
+italian_coronav_tweets2 <- search_tweets2(
+  c("coronavirus"), n = 50000, 
+  retryonratelimit = TRUE,
+  include_rts = FALSE, 
+  lang = "it",
+  since_id = min_id_prev_run
+)
+
+#found 39723 new results from Feb 5 to Feb 14 (run it again(sovrascrivilo che tanto queste date già ce le abbiamo))
+#saving them: 
+save(italian_coronav_tweets2, file ="italian_coronav_tweets2.RData")
