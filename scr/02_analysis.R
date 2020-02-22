@@ -1,4 +1,6 @@
-#ANALYSIS
+#ANALYSIS--------------------------------------------------------------------
+#This file contains the text, sentiment and emotion analysis
+
 
 #Merging the datasets to have all the 658 observation containing the keywords 
 #'coronavirus' and 'fakenews' from Feb the 3rd to Feb 17 together
@@ -6,7 +8,7 @@ both_keywords_dataset <- rbind(both_keywords, both_keywords_second)
 save(both_keywords_dataset, file = "both_keywords_fulldataset.RData")
 
 
-#Plotting tweets frequency over the past two weeks (from Feb 3rd to Feb 17th)
+#Plotting tweets frequency over the past two weeks (from Feb the 3rd to Feb the 17th)
 cv_fk_plot <- ts_plot(both_keywords_dataset, "1 hours") +
   ggplot2::theme_minimal() +
   scale_x_datetime(date_minor_breaks = "1 day", date_breaks = "1 day", date_labels = "%b %d")+
@@ -21,16 +23,17 @@ cv_fk_plot
 ggsave(cv_fk_plot, filename = "BothKeywords_Freq_plot.png",
         width = 10, height = 4)
 
-#Now I'm starting the text analysis
-#removing http elements manually
+#TEXT ANALYSIS------------------------------------------------------------------------------
+
+#Removing http elements manually
 both_keywords_dataset$stripped_text <- gsub("http\\S+", "", both_keywords_dataset$text)
 
-#Then I use the unnest_tokens() function to convert to lowercase, remove punctuation, and add id for each tweet
+#Using the unnest_tokens() function to convert to lowercase, remove punctuation, and add id for each tweet
 both_keywords_dataset1 <- both_keywords_dataset %>% 
  select(stripped_text) %>% 
  unnest_tokens(word, stripped_text)
 
-#I'm removing stopwords from my new list of words
+#Removing stopwords from my new list of words
 unnecessary_words <- c("yt", "ps")
 
 cleaned_tweets_bothkeywords <- both_keywords_dataset1 %>% 
@@ -57,27 +60,26 @@ Top_10_words_plot <- cleaned_tweets_bothkeywords %>%
        y = "Unique words",
        title = "Top 10 words found in #coronavirus #fakenews tweets")
        
-#saving the horizontal barplot
+#Saving the horizontal barplot
 ggsave(Top_10_words_plot, filename = "Top_10_words_plot.png",
         width = 10, height = 4)
 
-#creating the bag of words
-
+#Creating the bag of words
 cleaned_tweets_bothkeywords %>% 
   count(word) %>% 
   with(wordcloud(word, n, max.words = 50, scale=c(2.2,0.70),(min.freq=5), colors=brewer.pal(8, "Dark2"),
                  random.color=T, random.order=F))
 
-#Sentiment analysis
+#SENTIMENT ANALYSIS----------------------------------------------------------------
 
-# Read file and find the nodes
+#Reading opeNER file and finding the nodes
 opeNER_xml <- read_xml("./lexicon/it-sentiment_lexicon.lmf.xml")
 entries <- xml_find_all(opeNER_xml, ".//LexicalEntry")
 lemmas <- xml_find_all(opeNER_xml, ".//Lemma")
 confidence <- xml_find_all(opeNER_xml, ".//Confidence")
 sentiment <- xml_find_all(opeNER_xml, ".//Sentiment")
 
-# Parse and put in a data frame
+#Parse and put in a data frame
 opeNER_df <- data.frame(
   id = xml_attr(entries, "id"),
   lemma = xml_attr(lemmas, "writtenForm"),
@@ -88,47 +90,46 @@ opeNER_df <- data.frame(
   stringsAsFactors = F
 )
 
-# Fix a mistake
+#Fixing a mistake
 opeNER_df$polarity <- ifelse(opeNER_df$polarity == "nneutral", 
                              "neutral", opeNER_df$polarity)
 
-# Make quanteda dictionary: 
+#Making a quanteda dictionary: 
 opeNER_dict <- quanteda::dictionary(with(opeNER_df, split(lemma, polarity)))
 
-# Saving it locally: 
+#Saving it locally: 
 write.csv(opeNER_df, file = "opeNER_df.csv")
 
-# Import it: 
+#Importing the dictionary: 
 opeNER <- rio::import("./lexicon/opeNER_df.csv")
 head(opeNER)
 
-# Words without polarity: 
+#Words without polarity: 
 table(opeNER$polarity, useNA = "always")
 opeNER <- opeNER %>%
   filter(polarity != "")
 
-# Depeche Mood: 
+#Depeche Mood dictionary: 
 dpm <- rio::import("./lexicon/DepecheMood_italian_token_full.tsv")
 head(dpm)
 
 
-#Sentiment analysis
+#Creating the sentiment dictionary
 opeNERdict <- quanteda::dictionary(
   split(opeNER$lemma, opeNER$polarity)
 )
 lengths(opeNERdict)
 
-# Create the a dataset with the text (as character) and the section(filtered)
+#Generating a dataset with the text (as character)
 corona_sentiment <-  both_keywords_dataset %>% 
   select(text) 
 
-#Creating corpus with quanteda package
-
+#Setting up a corpus with quanteda package
 corpus_tweets <- corpus(corona_sentiment)
 summary(corpus_tweets)
 names(corpus_tweets)
 
-# create the DFM for the sentiment analysis: 
+#Creating the Document-Frequency Matrix (DFM) for the sentiment analysis: 
 corona_dfm <- dfm(
   corpus_tweets,
   tolower = T,
@@ -137,17 +138,19 @@ corona_dfm <- dfm(
 
 head(corona_dfm)
 
-# SENTIMENT GRAPH --> cercare su internet
-#quanteda plot
+#SENTIMENT PLOT----------------------------------------------------------------------------
+#The following plot shows the frequency of positive, neutral or negative words in the tweets
+Sentiment_plot <- barplot(colSums(corona_dfm),  col = c("gray20", "gray50", "gray80"),
+        ylab = "Counts",
+        main = "Frequency of positive, neutral or negative words in the tweets")
 
 
+#EMOTIONS ANALYSIS: sentiment with continuos categories--------------------------------------------
 
-## SENTIMENT WITH CONTINOUS CATEGORIES: analysis of the emotions
-# Creating vectors for each categories of the DPM, each is weighted:
-# saving the words from DPM in a vector: 
+#Saving the words from DPM in a vector: 
 dpm_words <- dpm$V1
 
-# Creating vectors for each categories of the DPM, each is weighted:
+#Generating vectors for each categories of the DPM, each is weighted:
 # 1. Indignato / Outraged: 
 dpm_ind <- dpm$INDIGNATO
 names(dpm_ind) <- dpm_words
@@ -217,20 +220,17 @@ cv_fn_soddisfatto <- cv_fn_sentiment %>%
   as.data.frame() %>%
   rename(Soddisfatto = ".")
 
-# grouping emotion together: 
+#Grouping emotions together: 
 cv_fk_emotions <- bind_cols(
   cv_fn_indignato, cv_fn_preoccupato, cv_fn_triste, cv_fn_divertito, cv_fn_soddisfatto 
 )
 cv_fk_emotions
 
-#Graph Emotions 
+#EMOTIONS BARPLOT----------------------------------------------------------------------
+#The barplot shows how many times each emotion is expressed in the tweets containing
+#both keywords 'coronavirus' and 'fakenews'
 barplot(colSums(cv_fk_emotions),  col = c("red", "darkseagreen2", "steelblue", "darkorange", "darkslategray1"),
         ylab = "Counts",
         main = "Number of times each emotion is expressed in the tweets")
 
-ggplot(cv_fk_emotions, aes(x=, y=percent, color=sentiment, group=sentiment)) +
-  geom_line(size=1) +
-  geom_point(size=0.5) +
-  xlab("day") +
-  ylab("Emotion words count (%)") +
-  ggtitle("Emotion words expressed in the #coronavirus #fakenews tweets")
+
