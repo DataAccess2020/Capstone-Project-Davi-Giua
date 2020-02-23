@@ -210,7 +210,7 @@ Sentiment_plot_coronavirus <- barplot(colSums(coronavirus_dfm),  col = c("gray20
 
 #Saving the plot 
 
-save(Sentiment_plot_coronavirus, file = "Sentiment_plot_coronavirus.png")
+save(Sentiment_plot_coronavirus, file = "Sentiment_plot_coronavirus.PDF")
 
 #Emotion Analysis: sentiment with continuos categories
 
