@@ -196,6 +196,18 @@ coronavirus_dfm <- dfm(
   
 ) 
 
-
 head(coronavirus_dfm)
 
+#Plot of the sentiment 
+
+#The following plot shows the frequency of positive, neutral or negative words in the tweets
+
+Sentiment_plot_coronavirus <- barplot(colSums(coronavirus_dfm),  col = c("gray20", "gray50", "gray80"),
+                          
+                          ylab = "Counts",
+                          
+                          main = "Frequency of positive, neutral or negative words in the tweets")
+
+#Saving the plot 
+
+save(Sentiment_plot_coronavirus, file = "Sentiment_plot_coronavirus.png")
