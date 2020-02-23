@@ -206,8 +206,71 @@ Sentiment_plot_coronavirus <- barplot(colSums(coronavirus_dfm),  col = c("gray20
                           
                           ylab = "Counts",
                           
-                          main = "Frequency of positive, neutral or negative words in the tweets")
+                          main = "Frequency of positive, neutral or negative words in the tweets about coronavirus")
 
 #Saving the plot 
 
 save(Sentiment_plot_coronavirus, file = "Sentiment_plot_coronavirus.png")
+
+#Emotion Analysis: sentiment with continuos categories
+
+#Saving the words from DPM in a vector: 
+
+dpm_words <- dpm$V1
+
+
+
+#Generating vectors for each categories of the DPM, each is weighted:
+
+# 1. Indignato / Outraged: 
+
+dpm_ind <- dpm$INDIGNATO
+
+names(dpm_ind) <- dpm_words
+
+
+
+# 2. Preoccupato / Worried:
+
+dpm_pre <- dpm$PREOCCUPATO
+
+names(dpm_pre) <- dpm_words
+
+
+
+# 3. Triste / Sad: 
+
+dpm_sad <- dpm$TRISTE
+
+names(dpm_sad) <- dpm_words
+
+
+
+# 4. Divertito / Entertained: 
+
+dpm_div <- dpm$DIVERTITO
+
+names(dpm_div) <- dpm_words
+
+
+
+# 5. Soddisfatto / Pleased: 
+
+dpm_sat <- dpm$SODDISFATTO
+
+names(dpm_sat) <- dpm_words
+
+
+# Now creating a DFM: 
+
+coronavirus_sentiment_dfm <- dfm(
+  
+  corpus_tweets_coronavirus,
+  
+  tolower = T,
+  
+  select = dpm_words
+  
+)
+
+coronavirus_sentiment_dfm
