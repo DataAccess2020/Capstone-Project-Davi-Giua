@@ -357,3 +357,19 @@ coronav_emotions <- bind_cols(
 )
 
 coronav_emotions
+
+#Emotions barplot 
+
+#Showing the amount of times each emotion is expressed in the tweets containing coronavirus
+
+
+emotions_plot_coronav <- barplot(colSums(coronav_emotions),  col = c("red", "darkseagreen2", "steelblue", "darkorange", "darkslategray1"),
+        
+        ylab = "Counts",
+        
+        main = "Number of times each emotion is expressed in the tweets about coronavirus")
+
+#Saving the plot
+ 
+save(emotions_plot_coronav, file = "Emotions_plot_coronavirus.png")     
+     
