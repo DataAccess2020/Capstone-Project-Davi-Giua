@@ -371,5 +371,4 @@ emotions_plot_coronav <- barplot(colSums(coronav_emotions),  col = c("red", "dar
 
 #Saving the plot
  
-save(emotions_plot_coronav, file = "Emotions_plot_coronavirus.png")     
-     
+save(emotions_plot_coronav, file = "Emotions_plot_coronavirus.PDF")     
