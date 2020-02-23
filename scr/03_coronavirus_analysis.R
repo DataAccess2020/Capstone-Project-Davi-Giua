@@ -19,15 +19,3 @@ frequency_plot <- ts_plot(italian_coronavirus_dataset, "1 hour") +
 #Finally, let's save the plot
 ggsave(frequency_plot, filename = "Frequency plot for coronavirus.pdf",
        device = cairo_pdf, width = 10, height = 4)
-
-ts_plot(italian_coronavirus_dataset, "1 hour")+
-  ts_plot(both_keywords_dataset, "1 hour")
-
-ts_pl
-
-
-par(mfrow=c(2,1)) 
-ts_plot(italian_coronavirus_dataset, "1 hour")
-ts_plot(both_keywords_dataset, "1 hour")
-
-ts.plot(italian_coronavirus_dataset, both_keywords_dataset, )
