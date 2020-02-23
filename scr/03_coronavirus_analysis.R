@@ -111,12 +111,11 @@ wordcloud_coronavirus <- cleaned_coronavirus %>%
                  random.color=T, random.order=F))
 
 
-#Sentiment analysis
-VUSentimentLexicon/IT-lexicon/it-sentiment_lexicon.lmf
+#SENTIMENT ANALYSIS
 
 # Read file and find the nodes
 
-opeNER_xml <- read_xml("it-sentiment_lexicon.lmf.xml")
+opeNER_xml <- read_xml("Data/it-sentiment_lexicon.lmf.xml")
 
 entries <- xml_find_all(opeNER_xml, ".//LexicalEntry")
 
@@ -167,7 +166,7 @@ write.csv(opeNER_df, file = "opeNER_df.csv")
 
 # Import it: 
 
-opeNER <- rio::import("opeNER_df.csv")
+opeNER <- rio::import("Data/opeNER_df.csv")
 
 head(opeNER)
 
@@ -183,7 +182,7 @@ opeNER <- opeNER %>%
 
 # Depeche Mood: 
 
-dpm <- rio::import("DepecheMood_italian_token_full.tsv")
+dpm <- rio::import("Data/DepecheMood_italian_token_full.tsv")
 
 head(dpm)
 
