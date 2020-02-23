@@ -24,7 +24,6 @@ We are going to:
 First of all, we collected the first dataset of tweets containing #coronavirus and #fakenews from February the 3rd to Feb the 17th, then we scraped the second dataset of tweets containing only the word "coronavirus" from Feb the 2nd to Feb the 18th. Both the dataset include only italian tweets and were collected with rtweet package. 
 
 ## Folders structure
-## Folders 
 
 Folder | What's in it
 ------------ | -------------
