@@ -5,3 +5,4 @@ italian_coronavirus_tweets.csv
 DepecheMood_italian_token_full.tsv
 cleaned_coronavirus.RData
 it-sentiment_lexicon.lmf.xml
+opeNER_df.csv
