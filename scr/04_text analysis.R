@@ -274,3 +274,86 @@ coronavirus_sentiment_dfm <- dfm(
 )
 
 coronavirus_sentiment_dfm
+
+#Represented emotions 
+# 1. Indignato
+
+coronav_indignato <- coronavirus_sentiment_dfm %>%
+  
+  dfm_weight(scheme = "prop") %>%
+  
+  dfm_weight(weights = dpm_ind) %>%
+  
+  rowSums() %>%
+  
+  as.data.frame() %>%
+  
+  rename(Indignato = ".")
+
+# 2. Preoccupato
+
+coronav_preoccupato <- coronavirus_sentiment_dfm %>%
+  
+  dfm_weight(scheme = "prop") %>%
+  
+  dfm_weight(weights = dpm_pre) %>%
+  
+  rowSums() %>%
+  
+  as.data.frame() %>%
+  
+  rename(Preoccupato = ".")
+
+# 3. Triste
+
+coronav_triste <- coronavirus_sentiment_dfm %>%
+  
+  dfm_weight(scheme = "prop") %>%
+  
+  dfm_weight(weights = dpm_sad) %>%
+  
+  rowSums() %>%
+  
+  as.data.frame() %>%
+  
+  rename(Triste = ".")
+
+# 4. Divertito
+
+coronav_divertito <- coronavirus_sentiment_dfm %>%
+  
+  dfm_weight(scheme = "prop") %>%
+  
+  dfm_weight(weights = dpm_div) %>%
+  
+  rowSums() %>%
+  
+  as.data.frame() %>%
+  
+  rename(Divertito = ".")
+
+
+
+# 5. Soddisfatto
+
+coronav_soddisfatto <- coronavirus_sentiment_dfm %>%
+  
+  dfm_weight(scheme = "prop") %>%
+  
+  dfm_weight(weights = dpm_sat) %>%
+  
+  rowSums() %>%
+  
+  as.data.frame() %>%
+  
+  rename(Soddisfatto = ".")
+
+#Grouping emotions together: 
+
+coronav_emotions <- bind_cols(
+  
+  coronav_indignato, coronav_preoccupato, coronav_triste, coronav_divertito, coronav_soddisfatto 
+  
+)
+
+coronav_emotions
