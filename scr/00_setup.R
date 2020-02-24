@@ -1,5 +1,4 @@
 #setting up 
-library(rtweet)
 library(rbind)
 library(dplyr)
 library(tidytext)
@@ -14,4 +13,8 @@ library(xml2)
 library(ggplot2)
 library(tidyverse)
 library(reshape2)
+library(wordcloud)
+library(xml2)
+library(timeSeries)
+
 

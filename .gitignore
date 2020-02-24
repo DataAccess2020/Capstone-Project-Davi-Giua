@@ -20,7 +20,15 @@ both_keywords1_ita.RData
 italian_coronav_tweets2.RData
 both_keywords_ita_old.RData
 both_keywords_second.RData
+italian_coronav_tweets.csv
+italian_coronavirus_tweets.csv
+italian_coronavirus_fulldataset.RData
+cleaned_coronavirus.RData
+it-sentiment_lexicon.lmf.xml
+DepecheMood_italian_token_full.tsv
+opeNER_df.csv
 italian_coronav_tweets3.RData
 italian_coronav_tweets1_1802.RData
 italian_coroonavirus_dataset_json.json
 both_keywords_fulldataset.RData
+
