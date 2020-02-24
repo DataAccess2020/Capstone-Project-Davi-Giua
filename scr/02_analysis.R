@@ -150,7 +150,11 @@ Sentiment_plot <- barplot(colSums(corona_dfm),  col = c("gray20", "gray50", "gra
 #Saving the words from DPM in a vector: 
 dpm_words <- dpm$V1
 
+<<<<<<< HEAD
 #Generating vectors for each category of the DPM, each is weighted:
+=======
+#Generating vectors for each categories of the DPM, each is weighted:
+>>>>>>> 9883922e8262a6739a5898b87b08a4a0a6106601
 # 1. Indignato / Outraged: 
 dpm_ind <- dpm$INDIGNATO
 names(dpm_ind) <- dpm_words
