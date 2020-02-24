@@ -51,10 +51,12 @@ Once I did that, I saved the cleaned dataset, and used it to visualize the 10 mo
 
 In the most used words we also find “Spallanzani” and “isolato” which refers to the Italian hospital where the virus was isolated to be studied. This was also a big topic on the news, since it leveraged the feeling of being proud of the “Italian excellences”. Aside from the words referring to China in different ways, we find that the 10th most used words is “morti”, which stresses the fact that the conversation is often about the fear that this virus  brings along, and of the feeling of uncertainty that revolves around it. 
 
-![Emotion plot](D:/R Projects/Capstone-Project-Davi-Giua/Plots/Emotions_plot_coronavirus.PDF)
+![Most used words](D:/R Projects/Capstone-Project-Davi-Giua/Plots/Top_10_words_plot_coronavirus.png)
 ### Wordcloud 
 
 After that, we chose to visualize a wordcloud of the 50 words that are most used when talking about the phenomenon. Some of them are expected, they refer to China (cina, cinese, cinesi, wuhan), some others refer to the spreading of the disease and the cure that scientist are looking for it (contagio, casi, test, epidemia, ricerca…). Other words need to be explained, for instance, we see that “Niccolò” is in these words. Niccolò is the name of the Italian student that couldn’t leave Wuhan for some time, and his story was quite followed in the country. We also find “nave”, “Africa”, “giappone”, that refer to the spreading of the virus outside China. It is interesting to notice that we have “razzismo” among the words, probably referring to the stigma we talked about before, as some days after the news about the virus broke out, several Chinese people in Italy revealed that they were almost forced to close their restaurants, and that people looked at them with suspicion, seeing them as the cause of the spreading of the virus. Another interesting element in the wordcloud is “salvini”, as he doesn’t belong to the sphere of what is discussed, but he is somehow very present in the discussion. An independent analysis could be conducted to understand what actually is discussed when Salvini is cited. 
+
+![Wordcloud](D:/R Projects/Capstone-Project-Davi-Giua/Plots/Wordcloud_coronavirus.PDF)
 
 ### Sentiment analysis and plot 
 
@@ -68,9 +70,9 @@ Once we managed to create the dictionary and the DFM, we plotted the results to 
 
 In the last part, we tried to conduct an emotion analysis, to see which emotions were most expressed in the tweets. To do that, we constructed five categories of emotions: outraged, worried, sad, entertained and pleased. We created the DFM for that and then we plotted the grouped emotions in the last plot. 
 
-![Emotion plot](D:/R Projects/Capstone-Project-Davi-Giua/Plots/Emotions_plot_coronavirus.PDF)
-
 From that we can see that the emotions expressed are quite varied. Being sad is the emotion that is portrayed less often, while being entertained is the one that results the most. Once again, this could be due both to the fact that people joke a lot about different situations, and therefore we could understand the “entertained” results, but it could also be due to the robustness of the analysis itself. Further research could clarify that doubt, but it would also be very time consuming, and requiring of some more advanced skills. 
+
+![Emotion plot](D:/R Projects/Capstone-Project-Davi-Giua/Plots/Emotions_plot_coronavirus.PDF)
 
 ### Conclusions and further research 
 
