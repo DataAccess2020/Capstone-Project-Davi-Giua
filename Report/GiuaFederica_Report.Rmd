@@ -1,0 +1,75 @@
+---
+title: "Capstone Report"
+author: "Federica Giua   federica.giua@studenti.unimi.it"
+output: html_document
+html_document:
+    toc: true
+    theme: spacelab
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Word Count: 1419*
+
+# *The spreading of fear through social media: **#fakenews** and **#coronavirus***
+
+
+
+## 1. **Introduction**
+The **spreading of the new coronavirus Covid-19** in the last two months has become more and more fast, as the **spreading of fake news** and incorrect informations around it, especially through social media. Due to the virus relative ease of transmission and media’s alarming news, panic and psychosis have grown among countries all around the world. This situation has brought frightened people to share their fears and thoughts also on social media.
+Me and my colleague Valentina Davì chose to observe this phenomena on Twitter, collecting Italian tweets, because we wanted to discover what were the trends, and the general emotions dominating the social background in our country, Italy. 
+
+-------------------------------------------------------------------------------------
+
+
+## 2. **Scraping process**
+We started collecting the data between February the 2nd and the 3rd and ended the collection between February the 17th and the 18th. To do that we used the `rtweet package`, an R client for accessing Twitter’s REST and stream APIs simply sending a request with functions. In our case, we used search_tweets(). At first, we wanted to scrape only the Italian tweets containing both the hashtags and words  *coronavirus* and *fakenews* or *fake news*, but since we had some problems downloading only that dataset, we decided also to collect all the Italian tweets containing only the word *coronavirus*. In fact, it seems that the `search_tweets()` function didn’t always work very well. We tried different chunks of code to filter all the tweets we needed but the download stopped at a certain point and went back to 1%. We think this might be a limit of the social platform or the package itself since we didn’t manage to solve it and we did not find any clear answer on the internet either. Anyway, we were able to collect the first 544 observations, containing the hashtags or words *coronavirus* and *fakenews*, from February the 3rd to the 11th. Although the download didn’t come to an end, we decided to keep those observations, even if it was a tiny sample. Then, with the `since_id` function, which allowed us to gather results with an id greater than last one from the first dataset, we downloaded 114 more observations from February the 11th to February the 17th. 
+Furthermore, to conduct a more elaborate research, me and my colleague decided to collect other two samples, containing only the word or hashtag *coronavirus*. Thus, we downloaded the new sample of tweets from February the 2nd to February the 10th , which retrieved 49757 observations and, another one from February the 10th to February the 18th, that gave back 35727 observations. 
+
+---------------------------------------------------------------------------------------
+
+
+## 3. **Analysis**
+After the collection of data, we proceeded with the analysis dividing the tasks between the two of us. I focused my attention on the first dataset, the one containing both keywords coronavirus and fakenews. To do so, I created my own branch and analyzed all the observations coming from the first two datasets. 
+First of all I merged them using 'rbind', retrieving **658 total observations**. After that, I plotted the tweets frequency .
+
+![Fig1](/Users/giuaf/OneDrive/Desktop/Capstone-Project-Davi-Giua/Plots/BothKeywords_Freq_plot.png)
+
+From the plot above, I could say that there have been two remarkable peaks of increase of Italian tweets concerning the coronavirus outbreak and the fake news correlated to the phenomena. Particularly, the biggest amount of tweets was shared from Monday, February the 3rd, to Wednesday, February the 6th. Although the tallest peak of increase can be observed on the 4th. However, the trend started decreasing very fast the following days, reaching the lowest frequency from February the 8th to February the 11th. Then it started increasing a bit, but keeping low the average score. 
+
+
+### 3.1 **Text Analysis**
+Then I started the text analysis, cleaning the dataset from stopwords, http elements, punctuation and converting all the words to lower cases. The result of this process has been a cleaned dataset with only one variable, *word*, that contained 7057 observations. I used the newly created dataset to find out the ten words mostly used in the tweets.
+
+![Fig2](/Users/giuaf/OneDrive/Desktop/Capstone-Project-Davi-Giua/Plots/Top_10_words_plot.png)
+
+As we can see from the bar chart, the words most used were the ones we expected: coronavirus, and fake news, immediately followed by twitter, salute, ministero, virus, accordo and Cina, the country were it all began. One noteworthy thing is that the word *fake news* is much more used than the hashtag *fakenews*.
+To conclude the text analysis, I created also a bag of words with the wordcloud library. The figure shows the occurrence of words within a text, in fact its peculiar characteristic is to reproduce the most important words with a greater font. In our case all the texts were collected from the tweets, and can be compared to the previous plot. 
+
+![Fig3](/Users/giuaf/OneDrive/Desktop/Capstone-Project-Davi-Giua/Figs/coronavirus_fakenews_wordcloud.png)
+
+This bag of words, also known as word cloud, shows maximum 50 words from the cleaned dataset, that have at least a frequency of 5, which I set up before running the code. The cloud has a lot in common with the bar plot above, in fact *coronavirus* and *fake news* are the most common words, together with ministero and #fakenews. However, the word cloud shows a more remarkable output, since there are many more important words that focus on other aspects of the coronavirus outbreak and the misinformation around it, such as WHO (World Health Organization); disinformazione; infodemia; Ilaria Capua, who is a famous Italian virologist; Wuhan, the Chinese town from where the outbreak started; Frosinone, the Italian city where there was a suspected case of the disease; Michele Boldrin, an Italian economist who shared some incorrect, yet alarming informations about the virus.
+
+## 3.2 **Sentiment Analysis**
+I performed the sentiment analysis with the `quanteda` package, using `opeNER` and `Depeche Mood` dictionaries. Personally, I found quanteda not so easy to use and I also had a lot of trouble finding an Italian dictionary to conduct the sentiment analysis on Italian tweets. In fact, it took a lot of effort and cooperation with the other colleagues who had the same problem.
+So, first I created the sentiment dictionary, then I generated a dataset with the text as character and set up a corpus with quanteda. Next I created a Document Frequency Matrix (DFM) for the sentiment analysis that I used later on to plot the frequency of negative, positive and neutral words use.
+
+![Fig4](/Users/giuaf/OneDrive/Desktop/Capstone-Project-Davi-Giua/Plots/Sentiment_plot.png)
+
+Suddenly, the bar plot shows a large amount of positive words. This was pretty unexpected, but It might be true since there were only two Italian cases confirmed at the time and maybe a lot of users tweeted with irony, or the dictionary structure was fallacious. 
+Proceeding with the analysis, I also performed the sentiment analysis with continuous categories, which allowed me to see the emotions trend over the past two weeks. For this reason I generated vectors for each category of the Depeche Mood dictionary: outraged, worried, sad, entertained, pleased; then I created a new Document-Frequency Matrix. In the end, I grouped all the emotions together and plotted them.
+
+![Fig5](/Users/giuaf/OneDrive/Desktop/Capstone-Project-Davi-Giua/Plots/Emotions_plot.png)
+
+The bar plot above reveals one of the assumption I did before since *divertito* (entertained) was the emotion with the highest score, so probably a lot of irony was used. Also *soddisfatto* (satisfied), which is the third emotion most shared, was completely unpredicted. Anyway, there is not a meaningful difference between each category. However, as expected *preoccupato* (worried) and *indignato* (outraged) were two of the emotions which were ranked the most on Twitter.
+
+---------------------------------------------------------------------------------------------
+
+## 4. **Conclusions and further research**
+Given the text and sentiment analysis results, I can state that the corona virus has been an increasing trend in Italy during the past two weeks. Also, the panic and fear spread throughout social media were real and the data highlighted it. Although what we have done has raw material, I think this could be the first step to a further research since the last three days have been very rough, following the fast spreading of the virus through the north of Italy. So, to collect more data this week could be much more affective and reliable than it has been before. 
+
+In conclusion, working on this capstone project has been very challenging, because we didn’t manage to accomplish everything we wanted to, but it was very interesting and inspiring trying to do that. In fact, in doing so, I improved my skills as a data analyst and I was able to apply a part of what I have learned during last months lessons, like using new packages (`rtweet`, `quanteda` and `textmining`) and working in team on GitHub. Now I feel more confident in using R and doing research. 
+
