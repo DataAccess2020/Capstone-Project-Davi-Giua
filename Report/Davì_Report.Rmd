@@ -33,7 +33,6 @@ The dataset containing only “coronavirus” as a keyword had 87189 observation
 ### Frequency plot 
 After merging the datasets, each one of us did a plot showing the time series of the tweets. In my case, the tweets containing coronavirus reach a peak on the first day of our analysis, February 2nd, with more than 800 tweets in the middle of the day. We can see that during nighttime the observations reach every day a minimum, which is quite expected. We can also observe that the overall trend is decreasing from the 2nd to the 8th of February, then it grows again until the 11th, and has a fluctuant trending in the following days. It is also interesting to notice that on the 14th we see a peak in the evening hours. This should be due to the fact that two things were happening on the 14th: first, Italy got the news that Niccolò, the young Italian who was in quarantine in Wuhan, was finally able to leave China to return to Italy; and second, the news of the first case of coronavirus in Egypt arrived. These two events, and probably the first in particular, were quite emphasized on the news, which, we could hypothesize, influenced the entity of the conversation about them on Twitter. 
 
-
 ### Text analysis 
 
 With the plotting of the frequencies, we had more information about when did people talk about the virus, we then wanted to understand more about what they were saying. Therefore, we tried to do some text analysis. 
