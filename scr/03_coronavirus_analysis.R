@@ -29,7 +29,6 @@ ggsave(frequency_plot, filename = "Frequency plot for coronavirus.pdf",
 
 #Let's try and do some text analysis on the tweets relating to coronavirus. 
 
-install.packages("quanteda")
 
 # First, removing the http elements
 
@@ -92,7 +91,7 @@ Top_10_words_plot_coronavirus <- cleaned_coronavirus %>%
        y = "Unique words",
        
        title = "10 most used words found in tweets relating to Coronavirus")
-Top_10_words_plot
+Top_10_words_plot_coronavirus
 
 #saving the plot
 
@@ -235,12 +234,10 @@ Sentiment_plot_coronavirus <- barplot(colSums(coronavirus_dfm),  col = c("gray20
                                       ylab = "Counts",
                                       
                                       main = "Frequency of positive, neutral or negative words in the tweets about coronavirus")
+#Saving the plot from the interface as it makes it easier to save PDFs. 
 
-#Saving the plot 
 
-save(Sentiment_plot_coronavirus, file = "Sentiment_plot_coronavirus.png")
-
-#Emotion Analysis: sentiment with continuos categories
+#EMOTION ANALYSIS: sentiment with continuos categories
 
 #Saving the words from DPM in a vector: 
 
@@ -399,4 +396,3 @@ emotions_plot_coronav <- barplot(colSums(coronav_emotions),  col = c("red", "dar
 
 #Saving the plot
 
-save(emotions_plot_coronav, file = "Emotions_plot_coronavirus.png")     
